@@ -62,18 +62,19 @@ const DecoratedBarChart = ChartDecorator(BarChartWrapper);
 
 const WeeklyChartStrategy = ({ chartData }) => (
   <>
-    <DecoratedBarChart chartData={chartData} type={CHART_TYPES.STRESS} />
     <DecoratedBarChart chartData={chartData} type={CHART_TYPES.DURATION} />
     <DecoratedBarChart chartData={chartData} type={CHART_TYPES.ENERGY} />
+    <DecoratedBarChart chartData={chartData} type={CHART_TYPES.STRESS} />
    
   </>
 );
 
 const MonthlyChartStrategy = ({ chartData }) => (
   <>
-    <DecoratedBarChart chartData={chartData} type={CHART_TYPES.STRESS} />
     <DecoratedBarChart chartData={chartData} type={CHART_TYPES.DURATION} />
     <DecoratedBarChart chartData={chartData} type={CHART_TYPES.ENERGY} />
+    <DecoratedBarChart chartData={chartData} type={CHART_TYPES.STRESS} />
+    
   </>
 );
 
@@ -111,9 +112,9 @@ export default function Home() {
     )
     .map((user) => ({
       data: moment(user.data).format("YYYY-MM-DD"),
-      duration: user.stres,
-      stress: user.durata,
+      duration: user.durata,
       energy: user.energie,
+      stress: user.stres,
     }));
     return (
       <div>

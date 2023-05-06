@@ -31,10 +31,10 @@ export default function Home() {
           <tr>
             <th scope="col">Id</th>
             <th scope="col">Descriere</th>
-            <th scope="col">Stres</th>
+            <th scope="col">Durata</th>
             <th scope="col">Energie</th>
             <th scope="col">Data</th>
-            <th scope="col">Durata</th>
+            <th scope="col">Stres</th>
             <th scope="col">Tag</th>
           </tr>
         </thead>

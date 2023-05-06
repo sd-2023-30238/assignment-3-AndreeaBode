@@ -1,5 +1,6 @@
 package com.example.demo.repository;
 
+import com.example.demo.dto.DreamDto;
 import com.example.demo.enity.Dream;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -16,10 +17,6 @@ public interface DreamRepository extends JpaRepository<Dream, Integer> {
     List<Dream> findAll();
     Dream save (Dream dream);
 
-    @Query("SELECT p.durata, p.energie, p.stres FROM Dream p WHERE p.data = :date")
-    List<Object[]> findDreamMetricsByDate(@Param("date") LocalDate date);
 
-    @Query("SELECT p.durata, p.energie, p.stres FROM Dream p WHERE p.data BETWEEN :startDate AND :endDate")
-    List<Object[]> findDreamMetricsByDateRange(@Param("startDate") LocalDate startDate, @Param("endDate") LocalDate endDate);
 
 }

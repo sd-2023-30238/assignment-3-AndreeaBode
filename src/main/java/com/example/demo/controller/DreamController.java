@@ -3,10 +3,13 @@ package com.example.demo.controller;
 import com.example.demo.dto.DreamDto;
 import com.example.demo.dto.DreamMapper;
 import com.example.demo.enity.Dream;
+import com.example.demo.repository.DreamRepository;
 import com.example.demo.service.DreamService;
+import com.example.demo.service.cqrs.GetDreamCommand;
+import com.example.demo.service.cqrs.Mediator;
+import com.example.demo.service.cqrs.SaveDreamCommand;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,26 +18,27 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/dreamService")
 public class DreamController {
+
     @Autowired
-    DreamService dreamService;
+    private DreamService dreamService;
+    @Autowired
+    private DreamRepository dreamRepository;
+
     @PostMapping("/save")
-    public ResponseEntity<Dream> saveDream(@RequestBody DreamDto body){
-        Dream dream = DreamMapper.transformToEntity(body);
-        if(Integer.parseInt(body.getEnergie())>=1 && Integer.parseInt(body.getEnergie())<=5 &&
-                Integer.parseInt(body.getDurata())>=1 && Integer.parseInt(body.getDurata())<=5 &&
-                Integer.parseInt(body.getStres())>=1 && Integer.parseInt(body.getStres())<=5){
-        Dream dreamToDto = dreamService.submitToDB(dream);
-        System.out.println(dreamToDto.getTag());
-        return ResponseEntity.status(HttpStatus.CREATED).body(dream);
-    }
-    else throw new ArithmeticException("Valori incorecte");
+    public Dream saveDream(@RequestBody Dream body) {
+        Mediator<Dream, DreamDto, DreamRepository> mediator = new Mediator<>(dreamRepository);
+        DreamDto dreamDto = new DreamDto(body);
+        SaveDreamCommand command = new SaveDreamCommand(dreamDto);
+        return mediator.execute(command);
     }
 
     @GetMapping("/getAllDreams")
     public ResponseEntity<List<DreamDto>> retrieveAllDreams() {
-        List<DreamDto> dreams = dreamService.receiveFromDB();
-        System.out.println(dreams.toString());
+        Mediator<List<DreamDto>, Void, DreamRepository> mediator = new Mediator<>(dreamRepository);
+        GetDreamCommand command = new GetDreamCommand();
+        List<DreamDto> dreams = mediator.execute(command);
         return new ResponseEntity<>(dreams, HttpStatus.OK);
     }
+
 
 }

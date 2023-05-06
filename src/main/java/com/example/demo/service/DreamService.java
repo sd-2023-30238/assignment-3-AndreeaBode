@@ -25,6 +25,8 @@ public class DreamService {
 
     public Dream submitToDB(Dream dream){
         dream.setLocalDate(LocalDate.now());
+        System.out.println("service");
+        System.out.println(dream);
         return dreamRepository.save(dream);
 
     }

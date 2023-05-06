@@ -1,9 +1,13 @@
 package com.example.demo.dto;
 
+import com.example.demo.enity.Dream;
+
 import java.time.LocalDate;
 import java.util.Date;
 
 public class DreamDto {
+
+    private Dream dream;
     private String descriere;
     private String stres;
     private String energie;
@@ -12,13 +16,26 @@ public class DreamDto {
     private LocalDate data;
 
 
-    public DreamDto(String descriere, String stres, String energie, String durata, String tag, LocalDate data) {
+    public DreamDto(String descriere, String stres, String energie, String durata, String tag) {
         this.descriere = descriere;
         this.stres = stres;
         this.energie = energie;
         this.durata = durata;
         this.tag = tag;
         this.data = data;
+    }
+
+    public DreamDto() {
+
+    }
+
+
+    public DreamDto(Dream dream) {
+        this.dream = dream;
+    }
+
+    public Dream getDream() {
+        return dream;
     }
 
     public LocalDate getData() {
@@ -28,6 +45,7 @@ public class DreamDto {
     public void setData(LocalDate data) {
         this.data = data;
     }
+
 
     public String getDescriere() {
         return descriere;

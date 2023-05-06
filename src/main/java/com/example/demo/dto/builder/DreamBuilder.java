@@ -11,6 +11,6 @@ public class DreamBuilder {
     public DreamBuilder() {
     }
     public static DreamDto toObiectiveDTO(Dream dream) {
-        return new DreamDto(dream.getDescriere(),dream.getDurata(),dream.getEnergie(),dream.getStres(),dream.getTag(),dream.getData());
+        return new DreamDto(dream.getDescriere(),dream.getDurata(),dream.getEnergie(),dream.getStres(),dream.getTag());
     }
 }
