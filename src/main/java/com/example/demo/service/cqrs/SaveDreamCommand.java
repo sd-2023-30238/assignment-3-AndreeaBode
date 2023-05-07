@@ -9,7 +9,6 @@ import java.time.LocalDate;
 
 public class SaveDreamCommand implements ICommand<Dream, DreamDto, DreamRepository> {
 
-    //public DreamRepository dreamRepository;
     private DreamDto dreamDto;
 
     public SaveDreamCommand(DreamDto dreamDto){
